@@ -1,5 +1,6 @@
 import _ from "lodash";
 import { algoritms } from "./algoritms.js";
+import { bigData } from "./bigData.js";
 
 test("adds 1 + 2 to equal 3", () => {
   expect(true).toBe(true);
@@ -20,8 +21,21 @@ const rest = new Set([
   { key: 3, age: 40 }
 ]);
 
-_.forEach(algoritms, (alg, key) => {
-  test(key, () => {
-    expect(new Set(alg(arr1, arr2))).toEqual(rest);
+describe("Correctness test", () =>
+  _.forEach(algoritms, (alg, key) => {
+    test(key, () => {
+      expect(new Set(alg(arr1, arr2))).toEqual(rest);
+    });
+  }));
+
+describe("Performance test", () => {
+  _.forEach(algoritms, (alg, key) => {
+    test(key, () => {
+      let time = window.performance.now();
+      alg(bigData.arr1, bigData.arr2);
+      let duration = window.performance.now() - time;
+      console.log(duration);
+      expect(duration).toBeLessThan(2);
+    });
   });
 });
