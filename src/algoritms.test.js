@@ -35,7 +35,7 @@ describe("Performance test", () => {
       alg(bigData.arr1, bigData.arr2);
       let duration = window.performance.now() - time;
       console.log(duration);
-      expect(duration).toBeLessThan(2);
+      expect(duration).toBeLessThan(8);
     });
   });
 });
